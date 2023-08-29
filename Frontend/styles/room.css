@@ -1,0 +1,12 @@
+.container {
+    margin: auto;
+    margin-top: 74px;
+    width: 50%;
+    /* position: absolute; */
+    top: 15%;
+    background-color: aqua;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  

@@ -5,8 +5,8 @@ function navbar() {
   <ul class="navbar-menu">
     <li class="nav-item"><a href="./index.html" class="nav-link">Home</a></li>
     <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-    <li class="nav-item"><a href="#" class="nav-link">Create Room</a></li>
-    <li class="nav-item"><a href="#" class="nav-link">Join Room</a></li>
+    <li class="nav-item"><a href="createRoom.html" class="nav-link">Create Room</a></li>
+    <li class="nav-item"><a href="joinRoom.html" class="nav-link">Join Room</a></li>
     <li class="nav-item">
         <a href="#" id="loginbtn" class="nav-link" style="background-color: #e54391; padding: 6px 20px; color: #fff; margin: 0 10px;border-radius: 5px;">Log in</a>
     </li>

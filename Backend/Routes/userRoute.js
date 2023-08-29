@@ -90,7 +90,7 @@ userRouter.post("/login", async (req, res) => {
         const token = jwt.sign({ userId: user._id }, jwtSecret,{expiresIn: "7days" });
 
         // Respond with a success message and the JWT token
-        res.status(200).json({ message: "Login successful", token });
+        res.status(200).json({ message: "Login successful", token,user });
     } catch (error) {
         // Handle server error
         res.status(500).json({ error: "Internal server error" });
