@@ -24,7 +24,7 @@ const authenticateToken = (req, res, next) => {
         }
         // Store the authenticated user data in the request
         req.user = user;
-        console.log("Authenticate");
+        // console.log("Authenticate");
         next();
     });
 };
