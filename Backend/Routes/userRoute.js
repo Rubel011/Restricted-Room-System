@@ -3,6 +3,8 @@ const { User } = require('../Models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { authenticateToken } = require('../Middleware/authentication');
+const TokenBlacklist = require('../Models/tokenBlackList');
+const blacklistMiddleware = require('../Middleware/blacklistMiddleware');
 
 const saltRounds = Number(process.env.SALT_ROUNDS) || 10;
 const jwtSecret = process.env.JWT_SECRET || 'masai';
@@ -100,7 +102,7 @@ userRouter.post("/login", async (req, res) => {
  * @desc    Get user profile (protected route)
  * @access  Private
  */
-userRouter.get("/profile", authenticateToken, async (req, res) => {
+userRouter.get("/profile", authenticateToken, blacklistMiddleware, async (req, res) => {
     try {
         // Access authenticated user data using req.user
         const user = await User.findById(req.user.userId);
@@ -113,5 +115,34 @@ userRouter.get("/profile", authenticateToken, async (req, res) => {
     }
 });
 
+
+/**
+ * @route   POST /users/logout
+ * @desc    Log out user and blacklist token
+ * @access  Private
+ */
+userRouter.post('/logout',authenticateToken, blacklistMiddleware, async (req, res) => {
+    try {
+        // Extract token from request headers
+        const token = req.header('Authorization');
+        // // Decode the token to get user ID
+        const decodedToken = jwt.decode(token);
+        
+        // Calculate token's expiration date
+        const expiry = new Date(decodedToken.exp * 1000);
+        
+        // Add token to the blacklist collection
+        const blacklistToken = new TokenBlacklist({
+            token,
+            userId: decodedToken.userId,
+            expiry
+        });
+        await blacklistToken.save();
+        
+        res.status(200).json({ message: 'Logout successful' });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 module.exports = { userRouter };

@@ -1,73 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VideoCall</title>
     <link rel="stylesheet" href="./styles/navbar.css">
     <link rel="stylesheet" href="./styles/index.css">
     <script src="https://kit.fontawesome.com/f584623432.js" crossorigin="anonymous"></script>
-    
-  </head>
-  <body>
-    <nav class="navbar">
-      <div class="navbar-logo">
-        <a href="index.html">VideoCall</a>
-      </div>
-      <ul class="navbar-menu">
-        <li class="nav-item"><a href="./index.html" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Create Room</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Join Room</a></li>
-        <li class="nav-item">
-            <a href="#" id="loginbtn" class="nav-link" style="background-color: #e54391; padding: 6px 20px; color: #fff; margin: 0 10px;border-radius: 5px;">Log in</a>
-        </li>
-        <li class="nav-item">
-            <i class="fa-regular fa-user"></i>
-        <a href="#" id="user" class="nav-link" style="margin-left:3px;font-size: 18px;">User</a>
-        </li>
-        
-      </ul>
-      <div class="hamburger">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-      </div>
-    </nav>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+    <nav id="navbarContainer" class="navbar"></nav>
     <main>
         <div id="main-section">
             <div id="left-section">
                 <div>
-                    <p><span>"Can you hear/see me okay?"</span>  - This is a great way to check if the other person can hear and see you clearly.</p>
+                    <p><span>"Can you hear/see me okay?"</span> - This is a great way to check if the other person can
+                        hear and see you clearly.</p>
                     <img src="./images/ved2.JPG" alt="">
                 </div>
                 <div>
                     <img src="./images/ved1.JPG" alt="">
-                    <p><span>"It's great to see you!"</span>  - This is a friendly and welcoming phrase that can help set a positive tone for the call.</p>               
+                    <p><span>"It's great to see you!"</span> - This is a friendly and welcoming phrase that can help set
+                        a positive tone for the call.</p>
                 </div>
-                 
+
                 <div>
-                    <p><span>"How's your day/week been?"</span>  - This is a good way to start a conversation and catch up with the other person.</p>
+                    <p><span>"How's your day/week been?"</span> - This is a good way to start a conversation and catch
+                        up with the other person.</p>
                     <img src="./images/ved5.JPG" alt="">
                 </div>
                 <div>
                     <img src="./images/ved4.JPG" alt="">
-                    <p><span>"Thanks for taking the time to talk today."</span>  - This is a polite way to show your appreciation for the other person's time.</p>              
+                    <p><span>"Thanks for taking the time to talk today."</span> - This is a polite way to show your
+                        appreciation for the other person's time.</p>
                 </div>
                 <div>
-                    <p><span>"I'm sorry, could you repeat that?"</span>  - If you didn't quite hear what the other person said, it's okay to ask them to repeat themselves.</p>
+                    <p><span>"I'm sorry, could you repeat that?"</span> - If you didn't quite hear what the other person
+                        said, it's okay to ask them to repeat themselves.</p>
                     <img src="./images/ved3.JPG" alt="">
                 </div>
             </div>
             <div id="right-section">
                 <div id="back">
-                    <img src="https://www.daily.co/blog/content/images/2020/08/image-blogpost-howtoembed-directory@2x.jpg" alt="">
+                    <img src="https://www.daily.co/blog/content/images/2020/08/image-blogpost-howtoembed-directory@2x.jpg"
+                        alt="">
                 </div>
-                
+
             </div>
-    
+
         </div>
     </main>
-  </body>
-  <script src="./scripts/navbar.js"></script>
+</body>
+
 </html>
+<script src="./scripts/navbar.js" type="module"></script>
