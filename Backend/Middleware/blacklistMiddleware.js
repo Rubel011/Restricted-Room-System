@@ -17,7 +17,7 @@ const blacklistMiddleware = async (req, res, next) => {
         if (blacklistedToken) {
             return res.status(401).json({ error: 'Token is blacklisted' });
         }
-        console.log("blacklisted token")
+        // console.log("blacklisted token")
 
         next();
     } catch (error) {

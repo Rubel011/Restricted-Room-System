@@ -1,4 +1,5 @@
 const express = require('express');
+const cors= require('cors');
 const app = express();
 const port = process.env.PORT || 1500;
 require("dotenv").config();
@@ -8,6 +9,8 @@ const { roomRouter } = require('./Routes/roomRoute');
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
+
+app.use(cors());
 
 // Home route
 app.get("/", async (req, res) => {
