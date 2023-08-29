@@ -2,6 +2,7 @@
     padding: 0px;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
   }
   :root{
       --navbar-background-color:#2C74B3;

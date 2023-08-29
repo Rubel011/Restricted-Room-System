@@ -1,5 +1,6 @@
 import {navbar} from "../components/navbar_com.js";
 const navbarContainer=document.getElementById("navbarContainer");
+const backend_link='https://restricted-room.onrender.com'
 navbarContainer.innerHTML=navbar();
 
 // hambarger codes
@@ -12,20 +13,20 @@ document.querySelector('.hamburger').addEventListener('click', function () {
 
 
 // setting username
-let userDetails = JSON.parse(localStorage.getItem("userDetails")) || null;
+let userDetails = JSON.parse(localStorage.getItem("userDetails")) || "userDetails";
 let loginbtn = document.getElementById("loginbtn");
 
 if (userDetails) {
     document.getElementById("userName").innerText = `👏Hi, ${userDetails?.name}`;
     loginbtn.innerText = "Logout";
 } else {
-    setTimeout(() => { printLoginError("Please login Yourself") }, 10000)
+    setTimeout(() => { printLoginError("Please login Yourself") }, 2000)
 
 }
 
 loginbtn.addEventListener("click", () => {
     if (userDetails) {
-        fetch(`https://veterinary-system.onrender.com/user/logout`, {
+        fetch(`${backend_link}/users/logout`, {
             headers: {
                 Authorization: localStorage.getItem("token")
             }
