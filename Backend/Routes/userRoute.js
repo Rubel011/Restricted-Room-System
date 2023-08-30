@@ -6,6 +6,10 @@ const { authenticateToken } = require('../Middleware/authentication');
 const TokenBlacklist = require('../Models/tokenBlackList');
 const blacklistMiddleware = require('../Middleware/blacklistMiddleware');
 
+// Assuming you have the following variables defined in your environment
+const senderEmail = process.env.vetspotEmail;
+const senderSmtpPass = process.env.vetspotPassword;
+
 const saltRounds = Number(process.env.SALT_ROUNDS) || 10;
 const jwtSecret = process.env.JWT_SECRET || 'masai';
 
@@ -59,6 +63,32 @@ userRouter.post("/register", async (req, res) => {
             // Save the new user to the database
             await newUser.save();
 
+            // Define the email content
+            const emailContent = {
+                to: email,
+                from: senderEmail, // Use the sender's email here
+                subject: "Successfully Registered",
+                text: `Thanks ${userName} for creating an account with Airmeet.`
+            };
+
+            // Create a transporter using Gmail service
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: senderEmail,
+                    pass: senderSmtpPass
+                }
+            });
+
+            // Send the email
+            transporter.sendMail(emailContent, (err, info) => {
+                if (err) {
+                    console.error("Error sending email:", err);
+                } else {
+                    console.log('Email sent:', info.response);
+                }
+            });
+
             // Respond with a success message
             res.status(201).json({ success: `${newUser.userName} has been registered successfully with _Id-${newUser._id}` });
         });
@@ -87,10 +117,10 @@ userRouter.post("/login", async (req, res) => {
         }
 
         // Generate a JWT token
-        const token = jwt.sign({ userId: user._id }, jwtSecret,{expiresIn: "7days" });
+        const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: "7days" });
 
         // Respond with a success message and the JWT token
-        res.status(200).json({ message: "Login successful", token,user });
+        res.status(200).json({ message: "Login successful", token, user });
     } catch (error) {
         // Handle server error
         res.status(500).json({ error: "Internal server error" });
@@ -121,16 +151,16 @@ userRouter.get("/profile", authenticateToken, blacklistMiddleware, async (req, r
  * @desc    Log out user and blacklist token
  * @access  Private
  */
-userRouter.post('/logout',authenticateToken, blacklistMiddleware, async (req, res) => {
+userRouter.post('/logout', authenticateToken, blacklistMiddleware, async (req, res) => {
     try {
         // Extract token from request headers
         const token = req.header('Authorization');
         // // Decode the token to get user ID
         const decodedToken = jwt.decode(token);
-        
+
         // Calculate token's expiration date
         const expiry = new Date(decodedToken.exp * 1000);
-        
+
         // Add token to the blacklist collection
         const blacklistToken = new TokenBlacklist({
             token,
@@ -138,7 +168,7 @@ userRouter.post('/logout',authenticateToken, blacklistMiddleware, async (req, re
             expiry
         });
         await blacklistToken.save();
-        
+
         res.status(200).json({ message: 'Logout successful' });
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });

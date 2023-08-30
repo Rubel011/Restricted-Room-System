@@ -7,7 +7,9 @@
     <title>Create Room Page</title>
 
     <link rel="stylesheet" href="./styles/navbar.css">
+    <link rel="stylesheet" href="./styles/createRoom.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/f584623432.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -17,24 +19,24 @@
 
         <div id="form__container">
             <div id="form__container__header">
-                <p>Create or Join Room</p>
+                <p>Create Room of your Choice</p>
             </div>
 
 
             <form id="lobby__form">
 
                 <div class="form__field__wrapper">
-                    <label>Your Name</label>
-                    <input type="text" name="name" required placeholder="Enter your display name..." />
+                    <label>Room Name</label>
+                    <input type="text" name="name" required placeholder="Enter your desire room name..." />
                 </div>
 
                 <div class="form__field__wrapper">
-                    <label>Room Id</label>
-                    <input type="text" name="room" placeholder="Enter room Id..." />
+                    <label>Allowed Email Ids</label>
+                    <input type="text" name="emailIds" placeholder="Enter Allowed Email Ids, separated by comma" />
                 </div>
 
                 <div class="form__field__wrapper">
-                    <button type="submit">Go to Room
+                    <button type="submit">Create Room
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path
                                 d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
@@ -49,3 +51,4 @@
 
 </html>
 <script src="./scripts/navbar.js" type="module"></script>
+<script src="./scripts/createRoom.js"></script>
