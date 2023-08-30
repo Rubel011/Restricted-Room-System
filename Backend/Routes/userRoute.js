@@ -2,6 +2,7 @@ const express = require('express');
 const { User } = require('../Models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 const { authenticateToken } = require('../Middleware/authentication');
 const TokenBlacklist = require('../Models/tokenBlackList');
 const blacklistMiddleware = require('../Middleware/blacklistMiddleware');
