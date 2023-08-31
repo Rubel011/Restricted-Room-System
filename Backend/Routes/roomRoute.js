@@ -3,6 +3,7 @@ const { authenticateToken } = require('../Middleware/authentication');
 const { User } = require('../Models/userModel');
 const { Room } = require('../Models/roomModel');
 const blacklistMiddleware = require('../Middleware/blacklistMiddleware');
+const sendEmail_nodemailer = require('../config/nodemailer');
 const roomRouter = express.Router();
 
 /**
@@ -26,6 +27,20 @@ roomRouter.post("/createRoom", authenticateToken, blacklistMiddleware, async (re
         const room = new Room({ adminId, adminName, adminEmailId, roomName, allowedEmailIds });
         await room.save();
 
+        sendEmail_nodemailer(adminEmailId, `Succesfully created "${roomName}" Room`, `
+        You have succesfully created ${roomName} Room
+        Room_id:- ${room._id},
+        You can join the roomusing Link-- https://restricted-room-system.vercel.app/mainRoom.html?room=${room.id}`)
+
+        if (allowedEmailIds.length > 0) {
+            for (let i of allowedEmailIds) {
+                sendEmail_nodemailer(i, `You are invited to join the room`, `
+            You are invited to join "${roomName}" Room
+            Room_id:- "${room._id}",
+            You can join the room using Link-- https://restricted-room-system.vercel.app/mainRoom.html?room=${room.id}`)
+            }
+        }
+
         // Respond with a success message
         res.status(200).json({ success: "Room created successfully" });
     } catch (error) {
@@ -47,7 +62,7 @@ roomRouter.post("/checkUser", authenticateToken, blacklistMiddleware, async (req
         const userId = req.user.userId;
         const user = await User.findById(userId);
         const userEmail = user.email;
-        
+
         // Find the room by ID
         const room = await Room.findById(roomId);
 

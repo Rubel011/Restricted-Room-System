@@ -6,7 +6,7 @@ let userDetails = JSON.parse(localStorage.getItem("userDetails")) || null;
 
 if (!userDetails) {
     printError("You are not logged in, please login")
-    setTimeout(() => { window.location.href = "login.html" }, 20000)
+    setTimeout(() => { window.location.href = "login.html" }, 5000)
 } else {
     checkUser()
 }
